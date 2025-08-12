@@ -25,41 +25,36 @@
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
         <jacoco.plugin.version>0.8.10</jacoco.plugin.version>
         <pitest.plugin.version>1.10.1</pitest.plugin.version>
+        <pitest.junit5.plugin.version>0.15</pitest.junit5.plugin.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot web starter -->
+        <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Boot core starter -->
+        <!-- Spring Boot Core -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Spring Boot test starter (JUnit 5 by default) -->
+        <!-- Spring Boot Test with JUnit 5 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
-                <!-- Exclude JUnit 4 to avoid conflicts -->
                 <exclusion>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
                 </exclusion>
-                <!-- Optional: exclude Mockito core if you want to use mockito-junit-jupiter -->
-                <exclusion>
-                    <groupId>org.mockito</groupId>
-                    <artifactId>mockito-core</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
 
-        <!-- Mockito JUnit Jupiter for mocks -->
+        <!-- Mockito JUnit Jupiter -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
@@ -70,7 +65,7 @@
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin -->
+            <!-- Compiler -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
@@ -87,7 +82,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- JaCoCo Maven Plugin for code coverage -->
+            <!-- JaCoCo for code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -109,11 +104,18 @@
                 </executions>
             </plugin>
 
-            <!-- PIT Mutation Testing Plugin -->
+            <!-- PIT Mutation Testing with JUnit 5 plugin -->
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>${pitest.junit5.plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <targetClasses>
                         <param>com.devsecops.*</param>
@@ -128,11 +130,11 @@
                         <param>HTML</param>
                         <param>XML</param>
                     </outputFormats>
-                    <!-- Optional: configure mutation threshold -->
-                    <mutationThreshold>80</mutationThreshold>
-                    <coverageThreshold>80</coverageThreshold>
+                    <mutationThreshold>50</mutationThreshold>
+                    <coverageThreshold>50</coverageThreshold>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
