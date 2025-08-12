@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ManojKRISHNAPPA/Calulator-springboot.git'
+                git branch: 'main', url: 'https://github.com/ManojKRISHNAPPA/devsecops-code-demo.git'
             }
         }
 
